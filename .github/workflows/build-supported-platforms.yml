@@ -9,21 +9,22 @@ jobs:
         config:
           - {
             name: "Windows Latest",
-            os: windows-latest
+            os: windows-latest,
+            build_type: Release
           }
           - {
             name: "Ubuntu 18.04",
-            os: ubuntu-18.04
+            os: ubuntu-18.04,
+            build_type: Release
           }
           - {
             name: "MacOS Latest",
-            os: macos-latest
+            os: macos-latest,
+            build_type: Release
           }
 
     runs-on: ${{matrix.config.os}}
     steps:
       - uses: actions/checkout@v2
-      - run: mkdir build
-      - run: cd build
-      - run: cmake -G Ninja ..
-      - run: cmake --build .
+      - run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.config.build_type}}
+      - run: cmake --build ${{github.workspace}}/build --config ${{matrix.config.build_type}}
