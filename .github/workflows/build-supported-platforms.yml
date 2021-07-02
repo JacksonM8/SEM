@@ -32,7 +32,7 @@ jobs:
       - name: Install Boost on Windows
         if: ${{ contains(matrix.config.os, 'windows') }}
         uses: MarkusJx/install-boost@v1.0.1
-        id: install-boost
+        id: install-boost-windows
         with:
           boost_version: 1.72.0
           toolset: msvc14.2
@@ -40,7 +40,7 @@ jobs:
       - name: Install Boost on Ubuntu
         if: ${{ contains(matrix.config.os, 'ubuntu') }}
         uses: MarkusJx/install-boost@v1.0.1
-        id: install-boost
+        id: install-boost-ubuntu
         with:
           boost_version: 1.72.0
 
@@ -55,7 +55,7 @@ jobs:
           -B ${{github.workspace}}/build
           -DCMAKE_BUILD_TYPE=${{matrix.config.build_type}}
         env:
-            BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
+            BOOST_ROOT: ${{ join(steps.install-boost-windows.outputs.BOOST_ROOT, steps.install-boost-ubuntu.outputs.BOOST_ROOT) }}
 
       - name: CMake Build Step
         run: >
