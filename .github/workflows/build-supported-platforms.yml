@@ -29,20 +29,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Install Boost
+      - name: Install Boost on Windows
+        if: ${{ contains(matrix.config.os, windows) }}
         uses: MarkusJx/install-boost@v1.0.1
         id: install-boost
         with:
           boost_version: 1.72.0
+          toolset: msvc14.2
+          boost_install_dir: "C:\boost"
+
+      - name: Install Boost on Ubuntu
+        if: ${{ contains(matrix.config.os, ubuntu) }}
+        run: >
+          wget https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.tar.gz &&
+          tar xf boost_1_67_0.tar.gz &&
+          pushd boost_1_67_0 &&
+          ./bootstrap.sh &&
+          ./b2 -j6 -d0 &&
+          ./b2 install -d0 &&
+          popd &&
+          rm -rf boost_1_67_0.tar.gz boost_1_67_0
 
       - name: CMake Generation Step
         run: >
           cmake
           -B ${{github.workspace}}/build
           -DCMAKE_BUILD_TYPE=${{matrix.config.build_type}}
-          -DBOOST_INCLUDEDIR=$BOOST_ROOT/include
-          -DBOOST_LIBRARYDIR=$BOOST_ROOT/lib
-
 
       - name: CMake Build Step
         run: cmake --build ${{github.workspace}}/build --config ${{matrix.config.build_type}}
