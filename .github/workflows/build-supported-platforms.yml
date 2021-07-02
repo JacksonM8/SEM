@@ -5,6 +5,7 @@ on: [push]
 jobs:
   cmake-generate-and-build:
     strategy:
+      fail-fast: false
       matrix:
         config:
           - {
