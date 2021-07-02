@@ -40,8 +40,8 @@ jobs:
           cmake
           -B ${{github.workspace}}/build
           -DCMAKE_BUILD_TYPE=${{matrix.config.build_type}}
-          -DBOOST_INCLUDEDIR=${{env.BOOST_ROOT}}/include
-          -DBOOST_LIBRARYDIR=${{env.BOOST_ROOT}}/lib
+          -DBOOST_INCLUDEDIR=$BOOST_ROOT/include
+          -DBOOST_LIBRARYDIR=$BOOST_ROOT/lib
 
 
       - name: CMake Build Step
