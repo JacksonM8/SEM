@@ -26,6 +26,18 @@ jobs:
 
     runs-on: ${{matrix.config.os}}
     steps:
-      - uses: actions/checkout@v2
-      - run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.config.build_type}}
-      - run: cmake --build ${{github.workspace}}/build --config ${{matrix.config.build_type}}
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Boost
+        uses: MarkusJx/install-boost@v1.0.1
+        id: install-boost
+        with:
+          boost_version: 1.72.0
+
+      - name: CMake Generation Step
+        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.config.build_type}}
+
+
+      - name: CMake Build Step
+        run: cmake --build ${{github.workspace}}/build --config ${{matrix.config.build_type}}
