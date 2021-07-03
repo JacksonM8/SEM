@@ -41,7 +41,7 @@ jobs:
 
       - name: Install Boost (mac only)
         if: ${{ contains(matrix.config.os, 'mac') }}
-        run: brew install boost@1.72
+        run: brew install boost
 
       - name: Cache Qt
         id: cache-qt
