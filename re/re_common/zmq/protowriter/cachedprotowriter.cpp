@@ -1,5 +1,9 @@
 #include "cachedprotowriter.h"
 
+// Placing boost header at the top in attempt to address windows build issue referenced here:
+//  https://stackoverflow.com/questions/21056386/linker-errors-when-using-boostfilesystem/45932790#45932790
+#include <boost/filesystem.hpp>
+
 #include <cstdio>
 #include <iostream>
 #include <fstream>
@@ -15,7 +19,6 @@
 #include <google/protobuf/stubs/common.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 #include <google/protobuf/io/coded_stream.h>
-#include <boost/filesystem.hpp>
 
 int getWriteFileDesc(const char* filename) {
     int filedesc;
