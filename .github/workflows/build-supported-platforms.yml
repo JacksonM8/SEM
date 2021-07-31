@@ -56,6 +56,11 @@ jobs:
           version: '5.14.1'
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
 
+      - name: Print Environment
+        run: |
+          echo "$PATH"
+        shell: bash
+
       - name: CMake Generation Step
         run: >
           cmake
