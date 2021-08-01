@@ -40,7 +40,7 @@ jobs:
           toolset: ${{ matrix.config.boost_toolset }}
 
       - name: Set Windows Pathing for Boost
-        if: ${{ !contains(matrix.config.os, 'win') }}
+        if: ${{ contains(matrix.config.os, 'win') }}
         run: |
           echo "${{ steps.install-boost.outputs.BOOST_ROOT }}" | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
 
