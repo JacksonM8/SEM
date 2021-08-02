@@ -64,6 +64,7 @@ jobs:
       - name: Print Environment
         run: |
           echo "$env:PATH"
+          ls  ${{ steps.install-boost.outputs.BOOST_ROOT }}
 
       - name: CMake Generation Step
         run: >
