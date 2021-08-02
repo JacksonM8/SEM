@@ -63,7 +63,7 @@ jobs:
 
       - name: Print Environment
         run: |
-          echo "{PATH}"
+          echo "$env:PATH"
 
       - name: CMake Generation Step
         run: >
