@@ -32,4 +32,5 @@ target_link_libraries(zmq_protowriter
         PRIVATE
         Boost::system
         Boost::filesystem
+        Boost::dynamic_linking
         )
